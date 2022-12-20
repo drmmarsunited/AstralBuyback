@@ -9,7 +9,11 @@ export async function action({request}: ActionArgs) {
   const formData = await request.formData();
 
   const itemData = formData.get('items');
-  const splitItems = splitItemIntoNameAndQty(itemData);
+  let splitItems: string[][] = [[]];
+
+  if (typeof itemData === "string") {
+    splitItems = splitItemIntoNameAndQty(itemData);
+  }
 
   return await getMarketOrderPrices(splitItems);
 }
