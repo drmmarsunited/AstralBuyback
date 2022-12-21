@@ -44,3 +44,20 @@ export default function App() {
     </html>
   );
 }
+
+export function ErrorBoundary({ error }) {
+  console.error(error);
+  return (
+    <html>
+    <head>
+      <title>Oh no!</title>
+      <Meta />
+      <Links />
+    </head>
+    <body>
+      <p>There was an unexpected error.  Please use your browser buttons to go back.</p>
+      <Scripts />
+    </body>
+    </html>
+  );
+}

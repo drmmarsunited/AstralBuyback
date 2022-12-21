@@ -1,6 +1,7 @@
 // Imports //
 import { parsePropsAndCreateItemNameList, sleep } from "~/utils";
 import { fetch } from "@remix-run/web-fetch";
+import { json } from "@remix-run/node";
 
 // Globals //
 const esiURL = "https://esi.evetech.net/latest"
@@ -44,6 +45,13 @@ interface finalMarketOrderData {
 }
 
 // Functions //
+/**
+ * This helper function helps us returning the accurate HTTP status,
+ * 400 Bad Request, to the client.
+ */
+export const badRequest = <T>(data: T) =>
+  json<T>(data, { status: 400 });
+
 /**
  * Function to take the final data model as input and calculate the final buyback value
  * @param orderData - Order data that has been retrieved from ESI
@@ -152,15 +160,20 @@ export async function getItemIdsByNameFromEsi(items: string[][]): Promise<esiInv
     'Cache-Control': 'no-cache'
   }
 
-  // Make the API call
-  const resp = await fetch(finalUrl, {
-    method: httpMethod,
-    headers: httpHeaders,
-    body: JSON.stringify(itemNameList)
-  })
+  // Check if there is anything in the items arrays to work with
+  if (itemNameList.length > 1) {
+    // Make the API call
+    const resp = await fetch(finalUrl, {
+      method: httpMethod,
+      headers: httpHeaders,
+      body: JSON.stringify(itemNameList)
+    })
 
-  // Return final response
-  return resp.json();
+    // Return final response
+    return resp.json();
+  }
+
+  return Promise.resolve({'inventory_types': []})
 }
 
 /**
