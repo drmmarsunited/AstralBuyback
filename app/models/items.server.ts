@@ -161,7 +161,7 @@ export async function getItemIdsByNameFromEsi(items: string[][]): Promise<esiInv
   }
 
   // Check if there is anything in the items arrays to work with
-  if (itemNameList.length > 1) {
+  if (itemNameList.length >= 1) {
     // Make the API call
     const resp = await fetch(finalUrl, {
       method: httpMethod,
@@ -171,9 +171,9 @@ export async function getItemIdsByNameFromEsi(items: string[][]): Promise<esiInv
 
     // Return final response
     return resp.json();
+  } else {
+    return Promise.resolve({'inventory_types': []})
   }
-
-  return Promise.resolve({'inventory_types': []})
 }
 
 /**
