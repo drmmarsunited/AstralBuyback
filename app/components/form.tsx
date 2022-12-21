@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "@remix-run/react";
-import { splitItemIntoNameAndQty } from "~/utils";
 
 // Interfaces //
 interface ItemProps {
