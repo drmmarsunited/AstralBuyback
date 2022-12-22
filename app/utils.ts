@@ -36,7 +36,7 @@ export function splitItemIntoNameAndQty(items: string ): string[][] {
 }
 
 export function parsePropsAndCreateItemNameList(splitItemsArray: string[][]) {
-  let itemNameList = [];
+  let itemNameList: string[] = [];
 
   if (splitItemsArray.length > 1) {
     splitItemsArray.forEach((item) => {
@@ -44,8 +44,10 @@ export function parsePropsAndCreateItemNameList(splitItemsArray: string[][]) {
         itemNameList.push(item[0])
       }
     });
-  } else if (splitItemsArray.length === 1) {
-    itemNameList.push(splitItemsArray[0][0])
+  } else if (splitItemsArray.length === 1 && splitItemsArray[0] !== undefined) {
+    if (splitItemsArray[0].length > 1) {
+      itemNameList.push(splitItemsArray[0][0])
+    }
   }
 
   return itemNameList;
