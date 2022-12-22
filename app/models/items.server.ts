@@ -189,18 +189,20 @@ export async function getMarketOrderPrices(items: string[][]) {
 
   // Call ESI to get market order data from The Forge for each item that was requested
   // We will narrow this data down to Buy Orders only from Jita
-  for (const item of itemIds.inventory_types) {
-    if (!finalData[item.name]) {
-      finalData[item.name] = []
-    }
-
-    const itemMarketOrderData = await getMarketOrdersFromJitaByItemId(item.id)
-
-    itemMarketOrderData.forEach((order) => {
-      if (order.system_id === esiRegionAndSystemIds.systems.jita) {
-        finalData[item.name].push(order)
+  if (itemIds.inventory_types !== undefined) {
+    for (const item of itemIds.inventory_types) {
+      if (!finalData[item.name]) {
+        finalData[item.name] = []
       }
-    });
+
+      const itemMarketOrderData = await getMarketOrdersFromJitaByItemId(item.id)
+
+      itemMarketOrderData.forEach((order) => {
+        if (order.system_id === esiRegionAndSystemIds.systems.jita) {
+          finalData[item.name].push(order)
+        }
+      });
+    }
   }
 
   // Sort the final by order data from Jita we have by price

@@ -75,7 +75,7 @@ export default function Index() {
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                     <dt className="text-md font-medium text-white">Buyback Value:</dt>
                     <dd className="mt-1 flex text-sm text-gray-400 sm:col-span-2 sm:mt-0">
-                      <span className="flex-grow font-bold">
+                      <span className="flex-grow font-bold" id="value">
                         {data ? `${data} ISK` : "Waiting for valid data..."}
                         <button
                           className="px-2 focus:ring-indigo-500"
