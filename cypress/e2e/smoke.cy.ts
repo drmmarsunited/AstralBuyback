@@ -34,4 +34,28 @@ describe("smoke tests", () => {
 
     cy.get('#value').contains('Waiting for valid')
   });
+
+  it("should not return any price data due to mixed format but invalid items", () => {
+    const testData = 'Full\nTest\t777'
+
+    cy.visitAndCheck('/');
+    cy.get('#items').type(testData)
+    cy.findByRole("button", { name: /Submit/i }).click();
+
+    cy.wait(5000)
+
+    cy.get('#value').contains('Waiting for valid')
+  });
+
+  it("should return price data for single valid item mixed in with invalid items", () => {
+    const testData = 'Full\nTest\t777\nFullerite-C50\t1961'
+
+    cy.visitAndCheck('/');
+    cy.get('#items').type(testData)
+    cy.findByRole("button", { name: /Submit/i }).click();
+
+    cy.wait(5000)
+
+    cy.get('#value').contains('ISK')
+  });
 });

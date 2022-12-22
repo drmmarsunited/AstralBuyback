@@ -35,7 +35,11 @@ export function splitItemIntoNameAndQty(items: string ): string[][] {
   return splitItems;
 }
 
-export function parsePropsAndCreateItemNameList(splitItemsArray: string[][]) {
+/**
+ * Function to parse an array of arrays to gather provided Eve item names
+ * @param splitItemsArray
+ */
+export function parsePropsAndCreateItemNameList(splitItemsArray: string[][]): string[] {
   let itemNameList: string[] = [];
 
   if (splitItemsArray.length > 1) {
