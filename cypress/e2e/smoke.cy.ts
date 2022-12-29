@@ -11,6 +11,18 @@ describe("smoke tests", () => {
     cy.get('#value').contains('ISK')
   });
 
+  it("should return valid price data with some items missing order data from Jita", () => {
+    const testData = 'Augumene\t71\nBitumens\t73'
+
+    cy.visitAndCheck('/');
+    cy.get('#items').type(testData)
+    cy.findByRole("button", { name: /Submit/i }).click();
+
+    cy.wait(5000)
+
+    cy.get('#value').contains('ISK')
+  });
+
   it("should return valid price data with spaces instead of tabs", () => {
     const testData = 'Fullerite-C72 16778\nFullerite-C50 19612'
 

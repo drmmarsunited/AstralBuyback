@@ -1,5 +1,5 @@
 // Imports //
-import { parsePropsAndCreateItemNameList, sleep } from "~/utils";
+import { parsePropsAndCreateItemNameList } from "~/utils";
 import { fetch } from "@remix-run/web-fetch";
 import { json } from "@remix-run/node";
 
@@ -46,7 +46,7 @@ interface finalMarketOrderData {
 
 // Functions //
 /**
- * This helper function helps us returning the accurate HTTP status,
+ * This helper function helps us return an accurate HTTP status,
  * 400 Bad Request, to the client.
  */
 export const badRequest = <T>(data: T) =>
@@ -70,8 +70,15 @@ function calculateTotalValueOfItems(orderData: finalMarketOrderData, items: stri
 
       if (itemName === order) {
         console.log(`We found a matching order for: ${itemName}`)
-        finalValue += (orderData[order][orderData[order].length - 1].price * parseInt(item.slice(-1).join()));
-        console.log(`finalValue is now: ${finalValue}`)
+        console.log(`Order data: ${JSON.stringify(orderData[order][orderData[order].length - 1])}`)
+        if (orderData[order][orderData[order].length - 1] !== undefined) {
+          if ('price' in orderData[order][orderData[order].length - 1]) {
+            finalValue += (orderData[order][orderData[order].length - 1].price * parseInt(item.slice(-1).join()));
+            console.log(`finalValue is now: ${finalValue}`)
+          }
+        } else {
+          console.log(`There is no order data from Jita for ${itemName}`)
+        }
       }
     });
   }
@@ -120,7 +127,8 @@ export async function getMarketOrdersFromJitaByItemId(itemId: number): Promise<e
     const httpMethod = 'GET'
     const httpHeaders = {
       accept: 'application/json',
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      'User-Agent': 'robins.mitch@pm.me-AstralBuyBack'
     }
 
     console.log(`Calling the URL: ${finalUrl}`)
@@ -140,8 +148,6 @@ export async function getMarketOrdersFromJitaByItemId(itemId: number): Promise<e
         page++
       }
     }
-
-    await sleep(2);
 
   } while (page !== maxPageCount)
 
@@ -165,7 +171,8 @@ export async function getItemIdsByNameFromEsi(items: string[][]): Promise<esiInv
     accept: 'application/json',
     'Content-Type': 'application/json',
     'Accept-Language': 'en',
-    'Cache-Control': 'no-cache'
+    'Cache-Control': 'no-cache',
+    'User-Agent': 'robins.mitch@pm.me-AstralBuyBack'
   }
 
   // Check if there is anything in the items arrays to work with

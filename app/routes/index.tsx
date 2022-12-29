@@ -51,7 +51,7 @@ export default function Index() {
                 textAreaHeader="Paste your ore here"
                 placeholderText="Click on ore in your inventory and press Ctrl+A, Ctrl+C."
                 rowCount={8}
-                note="Note: only valid item names will be included for price calculation. Invalid items will be ignored."
+                note="Note: only valid item names will be included for price calculation. Invalid items will be ignored and items with no market data will have a zero ISK value."
               />
 
               <div className="mt-5">

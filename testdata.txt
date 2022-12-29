@@ -1,2 +1,17 @@
 Fullerite-C72	16778
 Fullerite-C50	19612
+
+
+Copious Cobaltite	30
+Augumene	7152
+Bitumens	73
+Brimful Bitumens	82
+Brimful Coesite	91
+Brimful Sylvite	21
+Brimful Zeolites	158
+Coesite	158
+Glistening Bitumens	9
+Glistening Coesite	47
+Glistening Sylvite	44
+Sylvite	135
+Zeolites	66
