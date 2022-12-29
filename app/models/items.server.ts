@@ -61,11 +61,17 @@ function calculateTotalValueOfItems(orderData: finalMarketOrderData, items: stri
   // Create holder for final value that we can update
   let finalValue: number = 0;
 
+  console.log(`This is items inside of calculate function: ${JSON.stringify(items)}`)
+
   // Loop through the keys of passed in items and find the highest prices
   for (const order of Object.keys(orderData)) {
     items.forEach((item) => {
-      if (item[0] === order) {
-        finalValue += (orderData[order][orderData[order].length - 1].price * parseInt(item[1]));
+      const itemName = item.slice(0, -1).join(' ');
+
+      if (itemName === order) {
+        console.log(`We found a matching order for: ${itemName}`)
+        finalValue += (orderData[order][orderData[order].length - 1].price * parseInt(item.slice(-1).join()));
+        console.log(`finalValue is now: ${finalValue}`)
       }
     });
   }
@@ -73,6 +79,8 @@ function calculateTotalValueOfItems(orderData: finalMarketOrderData, items: stri
   // Multiply the final value by 90% to get what we'll pay
   finalValue = finalValue * 0.90
   finalValue = Math.round((finalValue + Number.EPSILON) * 100) / 100;
+
+  console.log(`This is finalValue from the calculate function: ${finalValue}`)
 
   return finalValue;
 }

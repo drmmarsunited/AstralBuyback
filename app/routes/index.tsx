@@ -30,6 +30,8 @@ export async function action({request}: ActionArgs) {
   // Make sure the input we got is a string
   splitItems = splitItemIntoNameAndQty(itemData);
 
+  console.log(`This is splitItems at the top: ${JSON.stringify(splitItems)}`)
+
   // Get all the data we need to return to the user
   return await getMarketOrderPrices(splitItems);
 }

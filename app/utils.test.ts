@@ -1,5 +1,4 @@
 import { parsePropsAndCreateItemNameList, splitItemIntoNameAndQty } from "./utils";
-import exp from "constants";
 
 // splitItemIntoNameAndQty tests //
 
@@ -15,12 +14,12 @@ test("properly splits name and qty by tabs with random names and quantities", ()
 
 test("properly splits name and qty by tabs with random names and no quantities", () => {
   expect(splitItemIntoNameAndQty("eggs\nbeans"))
-    .toStrictEqual([["eggs"], ["beans"]])
+    .toStrictEqual([])
 });
 
 test("properly splits name and qty by tabs with mix of random names and quantities", () => {
   expect(splitItemIntoNameAndQty("eggs\nbeans\t88\ntoast\t999\nFullerite-C72\t16778"))
-    .toStrictEqual([["eggs"], ["beans", "88"], ["toast", "999"], ["Fullerite-C72", "16778"]])
+    .toStrictEqual([["beans", "88"], ["toast", "999"], ["Fullerite-C72", "16778"]])
 });
 
 // parsePropsAndCreateItemNameList tests //
