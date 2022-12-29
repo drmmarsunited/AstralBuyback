@@ -11,6 +11,42 @@ describe("smoke tests", () => {
     cy.get('#value').contains('ISK')
   });
 
+  it("should return valid price data with spaces instead of tabs", () => {
+    const testData = 'Fullerite-C72 16778\nFullerite-C50 19612'
+
+    cy.visitAndCheck('/');
+    cy.get('#items').type(testData)
+    cy.findByRole("button", { name: /Submit/i }).click();
+
+    cy.wait(5000)
+
+    cy.get('#value').contains('ISK')
+  });
+
+  it("should return valid price data for multi-word items", () => {
+    const testData = 'Concussion Bomb\t5\nCap Booster 100\t93'
+
+    cy.visitAndCheck('/');
+    cy.get('#items').type(testData)
+    cy.findByRole("button", { name: /Submit/i }).click();
+
+    cy.wait(5000)
+
+    cy.get('#value').contains('ISK')
+  });
+
+  it("should return valid price data with spaces instead of tabs for multi-word items", () => {
+    const testData = 'Concussion Bomb 5\nCap Booster 100 93'
+
+    cy.visitAndCheck('/');
+    cy.get('#items').type(testData)
+    cy.findByRole("button", { name: /Submit/i }).click();
+
+    cy.wait(5000)
+
+    cy.get('#value').contains('ISK')
+  });
+
   it("should not return any price data due to bad inputs with no quantities", () => {
     const testData = 'eggs\ntoast\nbeans'
 

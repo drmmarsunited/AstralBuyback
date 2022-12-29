@@ -6,7 +6,7 @@
 export function splitItemIntoNameAndQty(items: string ): string[][] {
   let splitItems = items?.split('\n').map((line) => {
     line.replace('\r', '')
-    return line.split('\t');
+    return line.split(/[\s|\t]/);
   });
 
   // Setup variable to house delete positions
@@ -15,14 +15,12 @@ export function splitItemIntoNameAndQty(items: string ): string[][] {
   // Loop through the split items and mark any with missing quantities for removal
   if (splitItems?.length > 1) {
     splitItems.forEach((item, index) => {
-      if (item.length > 1) {
-        if (item.length <= 1) {
-          positionsToDelete.push(index)
-        }
+      if (!doesItemHaveQty(item)) {
+        positionsToDelete.push(index)
       }
     });
   } else if (splitItems.length === 1) {
-    if (splitItems[0].length <= 1) {
+    if (!doesItemHaveQty(splitItems[0])) {
       positionsToDelete.push(0)
     }
   }
@@ -32,7 +30,24 @@ export function splitItemIntoNameAndQty(items: string ): string[][] {
     delete splitItems[position]
   });
 
-  return splitItems;
+
+  return splitItems?.filter(element => {
+    return element !== undefined
+  });
+}
+
+/**
+ * Helper function to determine if an item array has a valid quantity
+ * @param item
+ */
+function doesItemHaveQty(item: string[]): boolean {
+  const qty = item.slice(-1)
+
+  if (qty !== undefined) {
+    return !isNaN(parseInt(qty.join()))
+  }
+
+  return false
 }
 
 /**
@@ -44,12 +59,12 @@ export function parsePropsAndCreateItemNameList(splitItemsArray: string[][]): st
 
   if (splitItemsArray.length > 1) {
     splitItemsArray.forEach((item) => {
-      if (item.length > 1) {
-        itemNameList.push(item[0])
+      if (doesItemHaveQty(item)) {
+        itemNameList.push(item.slice(0, -1).join(' '))
       }
     });
   } else if (splitItemsArray.length === 1 && splitItemsArray[0] !== undefined) {
-    if (splitItemsArray[0].length > 1) {
+    if (doesItemHaveQty(splitItemsArray[0])) {
       itemNameList.push(splitItemsArray[0][0])
     }
   }
