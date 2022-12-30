@@ -15,3 +15,34 @@ Glistening Coesite	47
 Glistening Sylvite	44
 Sylvite	135
 Zeolites	66
+
+Talocan Stasis Deflector	1
+Alloyed Tritanium Bar	1246
+Armor Plates	2151
+Artificial Neural Network	4
+Broken Drone Transceiver	2164
+Burned Logic Circuit	9541
+Capacitor Console	15
+Conductive Thermoplastic	4
+Current Pump	27
+Damaged Artificial Neural Network	389
+Drone Transceiver	16
+Fried Interface Circuit	163
+Impetus Console	16
+Intact Shield Emitter	21
+Interface Circuit	235
+Logic Circuit	17
+Lorentz Fluid	7
+Malfunctioning Shield Emitter	2459
+Melted Capacitor Console	810
+Micro Circuit	270
+Nanite Compound	1
+Power Circuit	22
+Power Conduit	4
+Scorched Telemetry Processor	2199
+Single-crystal Superalloy I-beam	68
+Telemetry Processor	16
+Thruster Console	1115
+Trigger Unit	19
+Tripped Power Circuit	6154
+Ward Console	1777
