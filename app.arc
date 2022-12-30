@@ -1,5 +1,5 @@
 @aws
-timeout 10
+timeout 60
 region us-east-2
 
 @app
