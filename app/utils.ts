@@ -6,7 +6,9 @@
 export function splitItemIntoNameAndQty(items: string ): string[][] {
   let splitItems = items?.split('\n').map((line) => {
     line.replace('\r', '')
-    return line.split(/[\s|\t]/);
+    let splitLine = line.split(/[\s|\t]/);
+    return [splitLine.slice(0,-1).join(" "), 
+    	splitLine[splitLine.length - 1]];
   });
 
   // Setup variable to house delete positions
@@ -60,7 +62,7 @@ export function parsePropsAndCreateItemNameList(splitItemsArray: string[][]): st
   if (splitItemsArray.length > 1) {
     splitItemsArray.forEach((item) => {
       if (doesItemHaveQty(item)) {
-        itemNameList.push(item.slice(0, -1).join(' '))
+        itemNameList.push(item[0])
       }
     });
   } else if (splitItemsArray.length === 1 && splitItemsArray[0] !== undefined) {
