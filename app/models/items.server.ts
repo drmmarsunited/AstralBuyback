@@ -66,7 +66,7 @@ function calculateTotalValueOfItems(orderData: finalMarketOrderData, items: stri
   // Loop through the keys of passed in items and find the highest prices
   for (const order of Object.keys(orderData)) {
     items.forEach((item) => {
-      const itemName = item.slice(0, -1).join(' ');
+      const itemName = item[0];
 
       if (itemName === order) {
         console.log(`We found a matching order for: ${itemName}`)
